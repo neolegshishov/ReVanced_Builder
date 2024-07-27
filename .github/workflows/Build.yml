@@ -108,7 +108,7 @@ jobs:
           --include `
           custom-video-speed `
           --purge `
-          --out "ReVanced_Builder\ReVanced\revanced.apk"
+          --out "ReVanced_Builder\revanced.apk"
 
       - name: Creating archive
         run: |
