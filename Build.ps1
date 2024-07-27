@@ -201,11 +201,48 @@ Remove-Item -Path "$DownloadsFolder\ReVanced\zulu-jdk-win_x64.msi" -Force
 patch "$DownloadsFolder\ReVanced\youtube.apk" `
 --patch-bundle "$DownloadsFolder\ReVanced\revanced-patches.jar" `
 --merge "$DownloadsFolder\ReVanced\revanced-integrations.apk" `
---exclude comments --exclude premium-heading --exclude hide-captions-button --exclude disable-fullscreen-panels `
+-e `
+always-autorepeat `
+-e `
+comments `
+-e `
+copy-video-url `
+-e `
+disable-fullscreen-panels `
+-e `
+disable-zoom-haptics `
+-e `
+hdr-auto-brightness `
+-e `
+hide-endscreen-cards `
+-e `
+hide-info-cards `
+-e `
+hide-player-buttons `
+-e `
+hide-player-overlay `
+-e `
+hide-seekbar `
+-e `
+hide-timestamp `
+-e `
+hide-video-action-buttons `
+-e `
+remove-player-button-background `
+-e `
+return-youtube-dislike `
+-e `
+swipe-controls `
+-e `
+tablet-mini-player `
+-e `
+wide-searchbar `
+--include `
+custom-branding `
+--include `
+custom-video-speed `
 --purge `
 --out "$DownloadsFolder\ReVanced\revanced.apk"
-
-Invoke-Item -Path "$DownloadsFolder\ReVanced"
 
 $Files = @(
 	"$DownloadsFolder\ReVanced\revanced-temporary-files",
