@@ -64,12 +64,51 @@ jobs:
           # https://github.com/revanced/revanced-patches
           & "$env:ProgramFiles\Zulu\zulu*\bin\java.exe" `
           -jar "ReVanced_Builder\revanced-cli.jar" `
-          patch "ReVanced_Builder\youtube.apk" `
-          --patch-bundle "ReVanced_Builder\revanced-patches.jar" `
-          --merge "ReVanced_Builder\revanced-integrations.apk" `
-          --exclude comments --exclude premium-heading --exclude hide-captions-button --exclude disable-fullscreen-panels `
+          patch "ReVanced_Builder\ReVanced\youtube.apk" `
+          --patch-bundle "ReVanced_Builder\ReVanced\revanced-patches.jar" `
+          --merge "ReVanced_Builder\ReVanced\revanced-integrations.apk" `
+          -e `
+          always-autorepeat `
+          -e `
+          comments `
+          -e `
+          copy-video-url `
+          -e `
+          disable-fullscreen-panels `
+          -e `
+          disable-zoom-haptics `
+          -e `
+          hdr-auto-brightness `
+          -e `
+          hide-endscreen-cards `
+          -e `
+          hide-info-cards `
+          -e `
+          hide-player-buttons `
+          -e `
+          hide-player-overlay `
+          -e `
+          hide-seekbar `
+          -e `
+          hide-timestamp `
+          -e `
+          hide-video-action-buttons `
+          -e `
+          remove-player-button-background `
+          -e `
+          return-youtube-dislike `
+          -e `
+          swipe-controls `
+          -e `
+          tablet-mini-player `
+          -e `
+          wide-searchbar `
+          --include `
+          custom-branding `
+          --include `
+          custom-video-speed `
           --purge `
-          --out "ReVanced_Builder\revanced.apk"
+          --out "ReVanced_Builder\ReVanced\revanced.apk"
 
       - name: Creating archive
         run: |
