@@ -135,6 +135,7 @@ jobs:
       - name: Uploading
         uses: softprops/action-gh-release@master
         with:
+          tag_name: ${{ env.RELEASE_NAME }}
           name: ${{ env.RELEASE_NAME }}
           token: ${{ github.token }}
           files: ReVanced.zip
