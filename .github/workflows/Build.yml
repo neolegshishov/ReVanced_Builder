@@ -62,53 +62,52 @@ jobs:
       - name: Building
         run: |
           # https://github.com/revanced/revanced-patches
+          echo "$env:ProgramFiles\Zulu\zulu*\bin\java.exe" -jar"ReVanced_Builder\revanced-cli.jar" list-patches --with-packages --with-versions --with-options "ReVanced_Builder\revanced-patches.jar"
           & "$env:ProgramFiles\Zulu\zulu*\bin\java.exe" `
           -jar "ReVanced_Builder\revanced-cli.jar" `
-          patch "ReVanced_Builder\youtube.apk" `
+          patch `
           --patches "ReVanced_Builder\revanced-patches.jar" `
-          --merge "ReVanced_Builder\revanced-integrations.apk" `
-          -e `
+          -d `
           always-autorepeat `
-          -e `
+          -d `
           comments `
-          -e `
+          -d `
           copy-video-url `
-          -e `
+          -d `
           disable-fullscreen-panels `
-          -e `
+          -d `
           disable-zoom-haptics `
-          -e `
+          -d `
           hdr-auto-brightness `
-          -e `
+          -d `
           hide-endscreen-cards `
-          -e `
+          -d `
           hide-info-cards `
-          -e `
+          -d `
           hide-player-buttons `
-          -e `
+          -d `
           hide-player-overlay `
-          -e `
+          -d `
           hide-seekbar `
-          -e `
+          -d `
           hide-timestamp `
-          -e `
+          -d `
           hide-video-action-buttons `
-          -e `
+          -d `
           remove-player-button-background `
-          -e `
+          -d `
           return-youtube-dislike `
-          -e `
+          -d `
           swipe-controls `
-          -e `
+          -d `
           tablet-mini-player `
-          -e `
+          -d `
           wide-searchbar `
-          --include `
-          custom-branding `
-          --include `
+          -e `
           custom-video-speed `
           --purge `
-          --out "$DownloadsFolder\ReVanced\revanced.apk"
+          --out "$DownloadsFolder\ReVanced\revanced.apk `
+          "ReVanced_Builder\youtube.apk""
 
       - name: Creating archive
         run: |
