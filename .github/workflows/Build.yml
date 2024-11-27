@@ -105,7 +105,7 @@ jobs:
           wide-searchbar `
           -e `
           custom-video-speed `
-          --purge 
+          --purge `
           "ReVanced_Builder\youtube.apk"
 
       - name: Creating archive
