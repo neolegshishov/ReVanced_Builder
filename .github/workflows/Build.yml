@@ -65,7 +65,7 @@ jobs:
           & "$env:ProgramFiles\Zulu\zulu*\bin\java.exe" `
           -jar "ReVanced_Builder\revanced-cli.jar" `
           patch "ReVanced_Builder\youtube.apk" `
-          --patch-bundle "ReVanced_Builder\revanced-patches.jar" `
+          --patches "ReVanced_Builder\revanced-patches.jar" `
           --merge "ReVanced_Builder\revanced-integrations.apk" `
           -e `
           always-autorepeat `
@@ -108,7 +108,7 @@ jobs:
           --include `
           custom-video-speed `
           --purge `
-          --out "ReVanced_Builder\revanced.apk"
+          --out "$DownloadsFolder\ReVanced\revanced.apk"
 
       - name: Creating archive
         run: |
