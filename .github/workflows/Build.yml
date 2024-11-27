@@ -106,6 +106,7 @@ jobs:
           -e `
           custom-video-speed `
           --purge `
+          -o "ReVanced_Builder\revanced.apk" `
           "ReVanced_Builder\youtube.apk"
 
       - name: Creating archive
