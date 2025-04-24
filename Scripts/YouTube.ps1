@@ -6,7 +6,7 @@ $Parameters = @{
 	Verbose         = $true
 }
 
-$LatestSupportedYT = (((Invoke-RestMethod @Parameters) | Where-Object { $_.name -eq "Video ads" }).compatiblePackages.'com.google.android.youtube' | Sort-Object -Descending -Unique | Select-Object -First 1
+$LatestSupportedYT = ((Invoke-RestMethod @Parameters) | Where-Object { $_.name -eq "Video ads" }).compatiblePackages.'com.google.android.youtube' | Sort-Object -Descending -Unique | Select-Object -First 1
 
 $LatestSupported = $LatestSupportedYT.Replace(".", "-")
 
