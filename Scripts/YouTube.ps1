@@ -6,9 +6,9 @@ $Parameters = @{
 	Verbose         = $true
 }
 
-$LatestSupportedYT = (((Invoke-RestMethod @Parameters) | Where-Object { $_.name -eq "Video ads" }).compatiblePackages.'com.google.android.youtube' | ForEach-Object { [version]$_ } | Sort-Object | Select-Object -Last 1).ToString()
+$LatestSupportedYT = (((Invoke-RestMethod @Parameters) | Where-Object { $_.name -eq "Video ads" }).compatiblePackages.'com.google.android.youtube' | Sort-Object -Descending -Unique | Select-Object -First 1
 
-$LatestSupported = $LatestSupportedYT.Replace(".0", ".").Replace(".", "-")
+$LatestSupported = $LatestSupportedYT.Replace(".", "-")
 
 # We need a NON-bundle version
 # https://www.apkmirror.com/apk/google-inc/youtube/
