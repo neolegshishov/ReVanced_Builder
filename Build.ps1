@@ -241,6 +241,8 @@ wide-searchbar `
 custom-branding `
 --include `
 custom-video-speed `
+--include `
+bypass-image-region-restrictions
 --purge `
 --out "$DownloadsFolder\ReVanced\revanced.apk"
 
