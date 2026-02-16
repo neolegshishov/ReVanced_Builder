@@ -41,33 +41,44 @@ jobs:
           -jar "ReVanced_Builder\revanced-cli.jar" `
           patch `
           --patches "ReVanced_Builder\revanced-patches.jar" `
-          --exclusive `
-          -e "Hide ads" `
-          -e "Video ads" `
-          -e "Remove viewer discretion dialog" `
-          -e "Downloads" `
-          -e "Hide video action buttons" `
-          -e "Navigation buttons" `
-          -e "Hide player overlay buttons" `
-          -e "Hide layout components" `
-          -e "Hide info cards" `
-          -e "Hide player flyout menu items" `
-          -e "Disable sign in to TV popup" `
-          -e "Miniplayer" `
-          -e "Shorts autoplay" `
-          -e "SponsorBlock" `
-          -e "Spoof app version" `
-          -e "Change start page" `
-          -e "Bypass image region restrictions" `
-          -e "Remove background playback restrictions" `
-          -e "Check watch history domain name resolution" `
-          -e "GmsCore support" `
-          -e "Bypass URL redirects" `
-          -e "Open links externally" `
-          -e "Sanitize sharing links" `
-          -e "Spoof video streams" `
-          -e "Video quality" `
-          -e "Playback speed" `
+          -d `
+          always-autorepeat `
+          -d `
+          comments `
+          -d `
+          copy-video-url `
+          -d `
+          disable-fullscreen-panels `
+          -d `
+          disable-zoom-haptics `
+          -d `
+          hdr-auto-brightness `
+          -d `
+          hide-endscreen-cards `
+          -d `
+          hide-info-cards `
+          -d `
+          hide-player-buttons `
+          -d `
+          hide-player-overlay `
+          -d `
+          hide-seekbar `
+          -d `
+          hide-timestamp `
+          -d `
+          hide-video-action-buttons `
+          -d `
+          remove-player-button-background `
+          -d `
+          return-youtube-dislike `
+          -d `
+          swipe-controls `
+          -d `
+          tablet-mini-player `
+          -d `
+          wide-searchbar `
+          -e `
+          custom-video-speed `
           --purge `
           -o "ReVanced_Builder\revanced.apk" `
           "ReVanced_Builder\youtube.apk"
@@ -103,5 +114,6 @@ jobs:
           token: ${{ github.token }}
           files: ReVanced.zip
           body_path: ${{ steps.read_release.outputs.ReleaseBody }}
+
 
 
