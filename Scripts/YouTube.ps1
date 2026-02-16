@@ -11,14 +11,20 @@ $LatestSupportedYT = $Patches.compatiblePackages."com.google.android.youtube" |
 
 echo "LatestSupportedYT=$LatestSupportedYT" >> $env:GITHUB_ENV
 
-# Путь для сохранения
+# Папка
 $OutputApk = "ReVanced_Builder\youtube.apk"
 New-Item -ItemType Directory -Force -Path "ReVanced_Builder" | Out-Null
 
-# APKCombo прямой URL (без Cloudflare)
-$DownloadUrl = "https://apkcombo.com/com.google.android.youtube/download/apk?arch=arm64-v8a&dpi=nodpi&ver=$LatestSupportedYT"
+# APKCombo API (НЕ Cloudflare)
+$ApiUrl = "https://apkcombo.com/api/v1/apk-download?id=com.google.android.youtube&arch=arm64-v8a&dpi=nodpi&version=$LatestSupportedYT"
 
-Write-Host "Downloading YouTube $LatestSupportedYT from APKCombo..."
-Invoke-WebRequest -Uri $DownloadUrl -OutFile $OutputApk -UserAgent "Mozilla/5.0" -Verbose
+Write-Host "Requesting download info from APKCombo API..."
+$Json = Invoke-RestMethod -Uri $ApiUrl -Method GET -UserAgent "Mozilla/5.0"
+
+# Прямая ссылка на APK
+$DirectUrl = $Json.url
+
+Write-Host "Downloading YouTube $LatestSupportedYT..."
+Invoke-WebRequest -Uri $DirectUrl -OutFile $OutputApk -UserAgent "Mozilla/5.0" -Verbose
 
 Write-Host "YouTube APK downloaded to $OutputApk"
