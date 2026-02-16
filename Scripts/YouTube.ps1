@@ -11,24 +11,14 @@ $LatestSupportedYT = $Patches.compatiblePackages."com.google.android.youtube" |
 
 echo "LatestSupportedYT=$LatestSupportedYT" >> $env:GITHUB_ENV
 
-# Скачиваем YouTube через revanced-cli downloader
-# revanced-cli сам найдёт нужную версию и скачает APK
+# Путь для сохранения
 $OutputApk = "ReVanced_Builder\youtube.apk"
-
-# Убедимся, что папка существует
 New-Item -ItemType Directory -Force -Path "ReVanced_Builder" | Out-Null
 
-# Запускаем revanced-cli
-# -a com.google.android.youtube — пакет
-# -o путь куда сохранить
-# -d — включить downloader
-# -f — перезаписать файл если уже есть
-& "$env:ProgramFiles\Zulu\zulu*\bin\java.exe" `
-    -jar "ReVanced_Builder\revanced-cli.jar" `
-    -a com.google.android.youtube `
-    -o $OutputApk `
-    -d `
-    -f
+# APKCombo прямой URL (без Cloudflare)
+$DownloadUrl = "https://apkcombo.com/com.google.android.youtube/download/apk?arch=arm64-v8a&dpi=nodpi&ver=$LatestSupportedYT"
+
+Write-Host "Downloading YouTube $LatestSupportedYT from APKCombo..."
+Invoke-WebRequest -Uri $DownloadUrl -OutFile $OutputApk -UserAgent "Mozilla/5.0" -Verbose
 
 Write-Host "YouTube APK downloaded to $OutputApk"
-
