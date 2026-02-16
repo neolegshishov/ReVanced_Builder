@@ -23,10 +23,12 @@ New-Item -ItemType Directory -Force -Path "ReVanced_Builder" | Out-Null
 # -o путь куда сохранить
 # -d — включить downloader
 # -f — перезаписать файл если уже есть
-"$env:ProgramFiles\Zulu\zulu*\bin\java.exe" -jar "ReVanced_Builder\revanced-cli.jar" \
-    -a com.google.android.youtube \
-    -o $OutputApk \
-    -d \
+& "$env:ProgramFiles\Zulu\zulu*\bin\java.exe" `
+    -jar "ReVanced_Builder\revanced-cli.jar" `
+    -a com.google.android.youtube `
+    -o $OutputApk `
+    -d `
     -f
 
 Write-Host "YouTube APK downloaded to $OutputApk"
+
