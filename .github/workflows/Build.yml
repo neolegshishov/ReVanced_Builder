@@ -13,51 +13,25 @@ jobs:
     steps:
       - uses: actions/checkout@main
 
-      - name: AngleSharp
+      - name: YouTube
         run: |
-          New-Item -Path ReVanced_Builder -ItemType Directory -Force
-
-          # https://www.nuget.org/packages/AngleSharp/
-          $Parameters = @{
-              Uri             = "https://www.nuget.org/api/v2/package/AngleSharp"
-              OutFile         = "anglesharp.nupkg"
-              UseBasicParsing = $true
-              Verbose         = $true
-          }
-          Invoke-Webrequest @Parameters
-
-          Add-Type -Assembly System.IO.Compression.FileSystem
-
-          Add-Type -Assembly System.IO.Compression.FileSystem
-          $ZIP = [IO.Compression.ZipFile]::OpenRead("anglesharp.nupkg")
-          $ZIP.Entries| Where-Object -FilterScript {($_.FullName -eq "lib/net8.0/AngleSharp.xml") -or ($_.FullName -eq "lib/net8.0/AngleSharp.dll")} | ForEach-Object -Process {
-              [IO.Compression.ZipFileExtensions]::ExtractToFile($_, "$($_.Name)", $true)
-          }
-          $ZIP.Dispose()
-
-      - name: Zulu JDK
-        run: |
-          . Scripts\Zulu_JDK.ps1
+          . Scripts\YouTube.ps1
 
       - name: ReVanced CLI
         run: |
           . Scripts\ReVanced_CLI.ps1
 
-      - name: YouTube
-        run: |
-          . Scripts\YouTube.ps1
-
       - name: Downloading ReVanced Patches
         run: |
           . Scripts\ReVanced_Patches.ps1
 
-      - name: ReVanced Integrations
-        run: |
-          . Scripts\ReVanced_Intergrations.ps1
-
       - name: Vanced MicroG
         run: |
           . Scripts\MicroG.ps1
+
+      - name: Zulu JDK
+        run: |
+          . Scripts\Zulu_JDK.ps1
 
       - name: Building
         run: |
@@ -129,4 +103,5 @@ jobs:
           token: ${{ github.token }}
           files: ReVanced.zip
           body_path: ${{ steps.read_release.outputs.ReleaseBody }}
+
 
