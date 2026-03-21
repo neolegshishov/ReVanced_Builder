@@ -9,8 +9,8 @@ $Parameters = @{
 	UseBasicParsing = $true
 	Verbose         = $true
 }
-$Patches = (Invoke-RestMethod @Parameters | Where-Object -FilterScript {$_.name -eq "Video ads"})
-$LatestSupportedYT = $Patches.compatiblePackages."com.google.android.youtube" | Sort-Object -Descending -Unique | Select-Object -First 1
+$Patches = Invoke-RestMethod @Parameters
+$LatestSupportedYT = ($Patches | Where-Object -FilterScript {$_.name -eq "Video ads"}).compatiblePackages."com.google.android.youtube" | Sort-Object -Descending -Unique | Select-Object -First 1
 $LatestSupported = $LatestSupportedYT.Replace(".", "-")
 
 Get-Process -Name msedgedriver, msedge -ErrorAction Ignore | Stop-Process -Force -ErrorAction Ignore
@@ -86,6 +86,7 @@ Add-Type -Path "ReVanced_Builder\WebDriver.dll"
 $Options = New-Object -TypeName OpenQA.Selenium.Edge.EdgeOptions
 $Options.AddArgument("--headless=new")
 $Options.AddArgument("--window-size=1280,720")
+$Options.AcceptInsecureCertificates = $true
 $Options.AddArgument("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 Edg/124.0.0.0")
 $driver = New-Object -TypeName OpenQA.Selenium.Edge.EdgeDriver("ReVanced_Builder\msedgedriver.exe", $Options)
 
@@ -109,11 +110,13 @@ if ($ButtonTitle.Text.Trim() -match "DOWNLOAD APK BUNDLE")
 }
 
 $DownloadURL = $ButtonTitle.GetAttribute("href")
-$DownloadURL
+Write-Verbose -Message $DownloadURL -Verbose
+
 # Download youtube.apk
 # Waiting for Edge to finish downloading
 $driver.Navigate().GoToUrl($DownloadURL)
-#$driver.FindElement([OpenQA.Selenium.By]::Id("download-link")).GetAttribute("href")
+#$DownloadURL = $driver.FindElement([OpenQA.Selenium.By]::Id("download-link")).GetAttribute("href")
+#$driver.Navigate().GoToUrl($DownloadURL)
 
 # Get runned Downloads folder
 $DownloadsFolder = Get-ItemPropertyValue -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" -Name "{374DE290-123F-4565-9164-39C4925E467B}"
@@ -122,9 +125,11 @@ $DownloadsFolder = Get-ItemPropertyValue -Path "HKCU:\Software\Microsoft\Windows
 do
 {
 	$APK = Test-Path -Path "$DownloadsFolder\*.apk"
+
 	if (-not $APK)
 	{
 		"Waiting for an APK file to be downloaded..."
+		Get-ChildItem -Path $DownloadsFolder -File
 		Start-Sleep -Seconds 5
 	}
 }
